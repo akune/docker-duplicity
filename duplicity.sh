@@ -10,6 +10,17 @@ function isUrl {
   fi
 }
 
+function isLocalPath {
+  if isUrl $1; then
+    return -1
+  fi
+  if [[ $1 == '-'* ]]; then
+    return 0
+  else
+    return -1
+  fi
+}
+
 function toContainerPath {
   result=$(cd $1 2>/dev/null && pwd || echo "")
   if [ "$result" = "" ]; then
@@ -20,9 +31,12 @@ function toContainerPath {
 }
 
 for (( i=$(($paramCount>1?$paramCount-2:0)); i<$paramCount; i++ )); do
-  if ! isUrl ${params[$i]}; then
+  if isLocalPath ${params[$i]}; then
+echo ${params[$i]}
     params[$i]=$(toContainerPath ${params[$i]})
+echo ${params[$i]}
   fi
 done
 
-docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:ro docker-duplicity duplicity ${params[@]}
+echo "docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw docker-duplicity duplicity ${params[@]}"
+docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw docker-duplicity duplicity ${params[@]}
