@@ -14,11 +14,11 @@ function isLocalPath {
   if isUrl $1; then
     return -1
   fi
-  if [[ $1 == '-'* ]]; then
-    return 0
-  else
-    return -1
-  fi
+#  if [[ $1 == '-'* ]]; then
+#    return 0
+#  else
+#    return -1
+#  fi
 }
 
 function toContainerPath {
