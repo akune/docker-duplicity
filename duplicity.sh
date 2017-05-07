@@ -38,5 +38,5 @@ echo ${params[$i]}
   fi
 done
 
-echo "docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw docker-duplicity duplicity ${params[@]}"
-docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw docker-duplicity duplicity ${params[@]}
+echo "docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw kune/docker-duplicity duplicity ${params[@]}"
+docker run -it -v ~/.docker-duplicity:/root:rw -v /:/duplicity.d:rw kune/docker-duplicity duplicity ${params[@]}
