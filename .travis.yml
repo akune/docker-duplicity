@@ -1,0 +1,14 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+script:
+  - docker build -t kune/docker-duplicity .
+  - docker images
+#  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push kune/docker-duplicity;
+#    fi
